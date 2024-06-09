@@ -69,9 +69,11 @@ mesh = SubResource("SphereMesh_y62p6")
 skeleton = NodePath("")
 
 [node name="Axis" type="Node3D" parent="."]
+visible = false
 
 [node name="X-Axis" type="StaticBody3D" parent="Axis" node_paths=PackedStringArray("player_node")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 2
 script = ExtResource("1_tpxm2")
 player_node = NodePath("../../Player")
 
@@ -92,6 +94,7 @@ mesh = SubResource("CylinderMesh_g7pdd")
 skeleton = NodePath("../..")
 
 [node name="Y-Axis" type="StaticBody3D" parent="Axis" node_paths=PackedStringArray("player_node")]
+collision_layer = 2
 script = ExtResource("2_i6x5o")
 player_node = NodePath("../../Player")
 
@@ -113,6 +116,7 @@ skeleton = NodePath("../..")
 
 [node name="Z-Axis" type="StaticBody3D" parent="Axis" node_paths=PackedStringArray("player_node")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+collision_layer = 2
 script = ExtResource("3_khxan")
 player_node = NodePath("../../Player")
 
@@ -132,13 +136,12 @@ material_override = SubResource("StandardMaterial3D_tlbwo")
 mesh = SubResource("CylinderMesh_g7pdd")
 skeleton = NodePath("../..")
 
-[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("camera_node", "axis_node", "raycaster_node", "debug_node")]
+[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("camera_node", "axis_node", "raycaster_node")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.99504, 4.87289)
 script = ExtResource("1_2tw3y")
 camera_node = NodePath("Camera3D")
 axis_node = NodePath("../Axis")
 raycaster_node = NodePath("../RayCaster")
-debug_node = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 0.919135, 0.393942, 0, -0.393942, 0.919135, 0, 0, 0)
