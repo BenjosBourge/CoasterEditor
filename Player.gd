@@ -98,17 +98,20 @@ func _input(event):
 
 
 func set_node_selected(node):
+	if node_selected != null:
+		node_selected.is_selected = false
 	if node == null:
 		node_selected = null
 		axis_node.visible = false
 		return
 	node_selected = node
+	node_selected.is_selected = true
 	axis_node.visible = true
+	axis_node.transform.origin = node_selected.transform.origin
 
 
 func pan_axis(start_pos, end_pos):
 	var distance = (start_pos - transform.origin).length()
-	print(distance)
 	var vector = end_pos - start_pos
 	var on_screen_start = camera_node.unproject_position(start_pos)
 	var on_screen_end = camera_node.unproject_position(end_pos)
@@ -116,5 +119,7 @@ func pan_axis(start_pos, end_pos):
 	
 	var dot_value = screen_vector.dot(mouse_vector)
 	if node_selected != null:
-		node_selected.transform.origin += vector * dot_value * deltatime * 0.001 * pow(distance, 1.4)
-		axis_node.transform.origin += vector * dot_value * deltatime * 0.001 * pow(distance, 1.4)
+		var deplacment = vector * dot_value * deltatime * 0.001 * pow(distance, 1.4)
+		node_selected.transform.origin += deplacment
+		axis_node.transform.origin += deplacment
+		node_selected._on_movement(deplacment)

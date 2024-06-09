@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dso7kjlfinwye"]
+
+[ext_resource type="Script" path="res://Step_Steep.gd" id="1_xivkp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6es5w"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uguds"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_h5uis"]
+radius = 0.2
+height = 0.4
+
+[node name="Step" type="StaticBody3D"]
+script = ExtResource("1_xivkp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6es5w")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_uguds")
+mesh = SubResource("SphereMesh_h5uis")
+skeleton = NodePath("")

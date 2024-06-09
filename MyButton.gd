@@ -1,8 +1,7 @@
-extends StaticBody3D
+extends Button
 
-class_name Clickable
-
-var is_selected = false
+@export var method : String
+@export var node : Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,13 +13,5 @@ func _process(delta):
 	pass
 
 
-func is_clicked():
-	pass
-
-
-func can_be_selected():
-	return true
-
-
-func _on_movement(deplacment):
-	pass
+func _pressed():
+	Callable(node, method).call()

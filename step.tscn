@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhaq60qjx712k"]
+
+[ext_resource type="Script" path="res://CoasterStep.gd" id="1_7ucc4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6es5w"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33v07"]
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_y62p6"]
+radius = 0.4
+height = 0.8
+
+[node name="Step" type="StaticBody3D"]
+script = ExtResource("1_7ucc4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6es5w")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_33v07")
+mesh = SubResource("SphereMesh_y62p6")
+skeleton = NodePath("")
