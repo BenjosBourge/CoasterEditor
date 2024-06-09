@@ -1,0 +1,149 @@
+[gd_scene load_steps=18 format=3 uid="uid://chlfqi8bjgwot"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_2tw3y"]
+[ext_resource type="Script" path="res://ClickableObject.gd" id="1_8vih1"]
+[ext_resource type="Script" path="res://X-Axis.gd" id="1_tpxm2"]
+[ext_resource type="Script" path="res://Y-Axis.gd" id="2_i6x5o"]
+[ext_resource type="Script" path="res://Z-Axis.gd" id="3_khxan"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6es5w"]
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33v07"]
+shading_mode = 0
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_y62p6"]
+radius = 0.4
+height = 0.8
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7m0ef"]
+height = 1.3
+radius = 0.08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16yml"]
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1e5nm"]
+top_radius = 0.0
+bottom_radius = 0.1
+height = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g7pdd"]
+top_radius = 0.03
+bottom_radius = 0.03
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dpf15"]
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlbwo"]
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xp8s6"]
+
+[sub_resource type="Sky" id="Sky_bccuc"]
+sky_material = SubResource("ProceduralSkyMaterial_xp8s6")
+
+[sub_resource type="Environment" id="Environment_664lh"]
+background_mode = 2
+sky = SubResource("Sky_bccuc")
+
+[node name="World" type="Node3D"]
+
+[node name="Step" type="StaticBody3D" parent="."]
+script = ExtResource("1_8vih1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Step"]
+shape = SubResource("SphereShape3D_6es5w")
+
+[node name="Mesh" type="MeshInstance3D" parent="Step"]
+material_override = SubResource("StandardMaterial3D_33v07")
+mesh = SubResource("SphereMesh_y62p6")
+skeleton = NodePath("")
+
+[node name="Axis" type="Node3D" parent="."]
+
+[node name="X-Axis" type="StaticBody3D" parent="Axis" node_paths=PackedStringArray("player_node")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_tpxm2")
+player_node = NodePath("../../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Axis/X-Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8206e-08, 0.645278, 0)
+shape = SubResource("CylinderShape3D_7m0ef")
+
+[node name="arrow_tip" type="MeshInstance3D" parent="Axis/X-Axis"]
+transform = Transform3D(1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0, 1, -5.10427e-08, 1.16772, 0)
+material_override = SubResource("StandardMaterial3D_16yml")
+mesh = SubResource("CylinderMesh_1e5nm")
+skeleton = NodePath("../..")
+
+[node name="arrow_body" type="MeshInstance3D" parent="Axis/X-Axis"]
+transform = Transform3D(0.999999, -1.06581e-14, 0, 1.06581e-14, 0.999999, 0, 0, 0, 1, -2.25379e-08, 0.515606, 0)
+material_override = SubResource("StandardMaterial3D_16yml")
+mesh = SubResource("CylinderMesh_g7pdd")
+skeleton = NodePath("../..")
+
+[node name="Y-Axis" type="StaticBody3D" parent="Axis" node_paths=PackedStringArray("player_node")]
+script = ExtResource("2_i6x5o")
+player_node = NodePath("../../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Axis/Y-Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8206e-08, 0.645278, 0)
+shape = SubResource("CylinderShape3D_7m0ef")
+
+[node name="arrow_tip" type="MeshInstance3D" parent="Axis/Y-Axis"]
+transform = Transform3D(1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0, 1, -5.10427e-08, 1.16772, 0)
+material_override = SubResource("StandardMaterial3D_dpf15")
+mesh = SubResource("CylinderMesh_1e5nm")
+skeleton = NodePath("../..")
+
+[node name="arrow_body" type="MeshInstance3D" parent="Axis/Y-Axis"]
+transform = Transform3D(0.999999, -1.06581e-14, 0, 1.06581e-14, 0.999999, 0, 0, 0, 1, -2.25379e-08, 0.515606, 0)
+material_override = SubResource("StandardMaterial3D_dpf15")
+mesh = SubResource("CylinderMesh_g7pdd")
+skeleton = NodePath("../..")
+
+[node name="Z-Axis" type="StaticBody3D" parent="Axis" node_paths=PackedStringArray("player_node")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+script = ExtResource("3_khxan")
+player_node = NodePath("../../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Axis/Z-Axis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8206e-08, 0.645278, 0)
+shape = SubResource("CylinderShape3D_7m0ef")
+
+[node name="arrow_tip" type="MeshInstance3D" parent="Axis/Z-Axis"]
+transform = Transform3D(1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0, 1, -5.10427e-08, 1.16772, 0)
+material_override = SubResource("StandardMaterial3D_tlbwo")
+mesh = SubResource("CylinderMesh_1e5nm")
+skeleton = NodePath("../..")
+
+[node name="arrow_body" type="MeshInstance3D" parent="Axis/Z-Axis"]
+transform = Transform3D(0.999999, -1.06581e-14, 0, 1.06581e-14, 0.999999, 0, 0, 0, 1, -2.25379e-08, 0.515606, 0)
+material_override = SubResource("StandardMaterial3D_tlbwo")
+mesh = SubResource("CylinderMesh_g7pdd")
+skeleton = NodePath("../..")
+
+[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("camera_node", "axis_node", "raycaster_node", "debug_node")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.99504, 4.87289)
+script = ExtResource("1_2tw3y")
+camera_node = NodePath("Camera3D")
+axis_node = NodePath("../Axis")
+raycaster_node = NodePath("../RayCaster")
+debug_node = NodePath("")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.919135, 0.393942, 0, -0.393942, 0.919135, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_664lh")
+
+[node name="RayCaster" type="RayCast3D" parent="."]
